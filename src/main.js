@@ -3,7 +3,6 @@ import "./style.css";
 const STORAGE_KEY = "accentra.devices.v1";
 const SELECTED_KEY = "accentra.selected.v1";
 const TARIF_RP_PER_KWH = 1500;
-const DEFAULT_POWER_KW = 0.7;
 
 function loadDevices() {
   try {
@@ -268,10 +267,15 @@ function showAddModal() {
         <label>ID
           <input name="id" placeholder="AC-001" autocomplete="off" />
         </label>
-        <label>Room <span class="opt">optional</span>
-          <input name="room" placeholder="Lab Elektronika" autocomplete="off" />
+        <label>Nama ruangan
+          <input name="room" placeholder="Lab Elektronika" autocomplete="off" required />
         </label>
-        <div class="form-error" id="add-error"></div>
+        <label>Daya AC (kW)
+          <input name="powerKw" type="number" min="0.01" step="0.01" inputmode="decimal"
+            placeholder="Contoh: 0.7" required />
+          <span class="opt">Masukkan daya listrik AC dalam kW, bukan kapasitas BTU/h.</span>
+        </label>
+        <div class="form-error" id="add-error" role="alert"></div>
         <div class="form-actions">
           <button type="button" class="btn-ghost" id="add-cancel">Batal</button>
           <button type="submit" class="btn-primary">Simpan</button>
@@ -291,6 +295,8 @@ function showAddModal() {
     const fd = new FormData(e.target);
     const id = String(fd.get("id") || "").trim();
     const room = String(fd.get("room") || "").trim();
+    const powerRaw = String(fd.get("powerKw") || "").trim();
+    const powerKw = Number(powerRaw);
     const errEl = document.querySelector("#add-error");
 
     const fail = (msg) => {
@@ -298,10 +304,13 @@ function showAddModal() {
     };
 
     if (!id) return fail("ID wajib diisi.");
+    if (!room) return fail("Nama ruangan wajib diisi.");
     if (devices.some((x) => x.id.toLowerCase() === id.toLowerCase()))
       return fail(`ID “${id}” sudah dipakai. Gunakan ID lain.`);
+    if (powerRaw === "" || !Number.isFinite(powerKw) || powerKw <= 0)
+      return fail("Daya AC harus berupa angka lebih besar dari 0 kW.");
 
-    devices.push({ id, room, powerKw: DEFAULT_POWER_KW, status: "OFF", history: [], currentStart: null });
+    devices.push({ id, room, powerKw, status: "OFF", history: [], currentStart: null });
     selectedId = id;
     saveDevices(devices);
     saveSelectedId(selectedId);
