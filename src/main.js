@@ -31,6 +31,7 @@ function saveSelectedId(id) {
 
 let devices = loadDevices();
 let selectedId = loadSelectedId();
+let searchKeyword = "";
 
 function getSelected() {
   return devices.find((d) => d.id === selectedId) || null;
@@ -75,7 +76,22 @@ function renderNav() {
     return;
   }
 
-  nav.innerHTML = devices
+  const keyword = searchKeyword.trim().toLowerCase();
+  const visible =
+    keyword === ""
+      ? devices
+      : devices.filter(
+          (d) =>
+            d.id.toLowerCase().includes(keyword) ||
+            (d.room || "").toLowerCase().includes(keyword)
+        );
+
+  if (visible.length === 0) {
+    nav.innerHTML = `<div class="nav-empty">Data tidak ditemukan</div>`;
+    return;
+  }
+
+  nav.innerHTML = visible
     .map(
       (d) => `
     <div class="nav-item${d.id === selectedId ? " active" : ""}">
@@ -336,6 +352,15 @@ document.querySelector("#app").innerHTML = `
   <div class="app-shell">
     <aside class="sidebar" id="sidebar">
       <div class="brand">AC Dashboard</div>
+      <div class="search-wrap">
+        <input
+          type="search"
+          id="device-search"
+          placeholder="Cari ID atau ruangan"
+          autocomplete="off"
+          aria-label="Cari perangkat"
+        />
+      </div>
       <nav class="device-nav" id="device-nav"></nav>
       <div class="sidebar-bottom">
         <button class="add-device" id="add-device">Add New Device</button>
@@ -351,6 +376,10 @@ document.querySelector("#app").innerHTML = `
 `;
 
 document.querySelector("#add-device")?.addEventListener("click", showAddModal);
+document.querySelector("#device-search")?.addEventListener("input", (e) => {
+  searchKeyword = e.target.value;
+  renderNav();
+});
 document.querySelector("#collapse-btn")?.addEventListener("click", () => {
   document.querySelector("#sidebar")?.classList.toggle("collapsed");
   document.body.classList.toggle("sidebar-collapsed");

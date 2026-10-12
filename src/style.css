@@ -56,6 +56,31 @@ button {
   font-weight: 700;
 }
 
+.search-wrap {
+  padding: 12px 12px 0;
+}
+
+#device-search {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: #16202f;
+  color: white;
+  font: inherit;
+  font-size: 14px;
+}
+
+#device-search::placeholder {
+  color: var(--muted);
+}
+
+.nav-empty {
+  padding: 14px 12px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
 .device-nav {
   display: flex;
   flex-direction: column;
@@ -304,6 +329,10 @@ body.sidebar-collapsed .nav-device {
 
 body.sidebar-collapsed .nav-label,
 body.sidebar-collapsed .nav-delete {
+  display: none;
+}
+
+body.sidebar-collapsed .search-wrap {
   display: none;
 }
 
@@ -616,6 +645,10 @@ body.sidebar-collapsed .collapse-btn svg {
     margin-top: 0;
     border-top: 0;
     padding: 0 12px 12px;
+  }
+
+  .search-wrap {
+    padding: 8px 12px 0;
   }
 
   .collapse-btn {
