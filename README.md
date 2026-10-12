@@ -67,7 +67,6 @@ Simpan bukti tangkapan layar aktual di folder `docs/bukti/`. Ganti nama/path con
 
 ## Cara Menjalankan Pengujian
 
-
 ## Fitur
 
 Fitur yang direncanakan untuk alur inti:
@@ -95,15 +94,15 @@ Fitur yang direncanakan untuk alur inti:
 
 Struktur berikut adalah struktur yang direncanakan dan perlu disesuaikan dengan folder yang benar-benar ada di repositori:
 
-| File / folder | Isi |
-|---|---|
-| `README.md` | Pengenalan proyek dan petunjuk menjalankan aplikasi |
-| `.gitignore` | Aturan file/folder yang diabaikan Git |
-| `docs/` | Dokumen proses kerja: spesifikasi, rencana, kasus uji, log prompt, review, refleksi, dan bukti |
-| `src/` | Kode sumber website, jika menggunakan struktur proyek tersebut |
-| `tests/` atau folder uji yang ditetapkan | Pengujian otomatis, jika dibuat |
-| `bughunt-kasir/` | Dokumen atau proyek terpisah untuk tugas Bug Hunt Kasir, sesuai struktur yang dipakai tim |
-| `package.json` | Metadata proyek, dependensi, dan skrip perintah jika menggunakan Node.js |
+| File / folder                            | Isi                                                                                            |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `README.md`                              | Pengenalan proyek dan petunjuk menjalankan aplikasi                                            |
+| `.gitignore`                             | Aturan file/folder yang diabaikan Git                                                          |
+| `docs/`                                  | Dokumen proses kerja: spesifikasi, rencana, kasus uji, log prompt, review, refleksi, dan bukti |
+| `src/`                                   | Kode sumber website, jika menggunakan struktur proyek tersebut                                 |
+| `tests/` atau folder uji yang ditetapkan | Pengujian otomatis, jika dibuat                                                                |
+| `bughunt-kasir/`                         | Dokumen atau proyek terpisah untuk tugas Bug Hunt Kasir, sesuai struktur yang dipakai tim      |
+| `package.json`                           | Metadata proyek, dependensi, dan skrip perintah jika menggunakan Node.js                       |
 
 ## Link Demo (Opsional)
 
@@ -111,17 +110,20 @@ Belum tersedia.
 
 ## Sumber dan Lisensi
 
-Catat library, template, gambar, ikon, font, atau aset eksternal yang benar-benar digunakan. Ikuti ketentuan lisensi masing-masing sumber.
+Proyek ini menggunakan lisensi MIT.
 
-| Nama | Sumber (link) | Lisensi |
-|---|---|---|
-| Diisi setelah dependensi dan aset dipilih | | |
+| Nama                      | Sumber                     | Lisensi |
+| ------------------------- | -------------------------- | ------- |
+| Vite                      | https://vite.dev           | MIT     |
+| Ikon SVG (chevron, trash) | Dibuat tim, inline di kode | MIT     |
+
+Tidak ada font, gambar, atau aset eksternal lain yang digunakan.
 
 ## Tim
 
-| Nama | Peran |
-|---|---|
-| Danang | Logika aplikasi, simulasi status, riwayat, perhitungan, dan penyimpanan |
-| Fahril | Antarmuka, daftar/formulir, dashboard/rekap, dan responsivitas |
-| Nadira | Pengujian, dokumentasi, kasus uji, dan bukti pengujian |
-| Semua anggota | Integrasi, review, dan memahami kode yang digunakan |
+| Nama          | Peran                                                                   |
+| ------------- | ----------------------------------------------------------------------- |
+| Danang        | Logika aplikasi, simulasi status, riwayat, perhitungan, dan penyimpanan |
+| Fahril        | Antarmuka, daftar/formulir, dashboard/rekap, dan responsivitas          |
+| Nadira        | Pengujian, dokumentasi, kasus uji, dan bukti pengujian                  |
+| Semua anggota | Integrasi, review, dan memahami kode yang digunakan                     |

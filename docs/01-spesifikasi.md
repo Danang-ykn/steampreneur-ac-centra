@@ -1,3 +1,7 @@
+
+
+<!-- [Main.JS](../src/main.js#L31) -->
+
 # Spesifikasi Produk — AC-CENTRA
 
 **Nama tim:** AC-CENTRA  

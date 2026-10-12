@@ -28,6 +28,7 @@ function saveSelectedId(id) {
   else localStorage.removeItem(SELECTED_KEY);
 }
 
+
 let devices = loadDevices();
 let selectedId = loadSelectedId();
 
