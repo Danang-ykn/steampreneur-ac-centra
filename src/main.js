@@ -68,6 +68,23 @@ function formatTanggal(ts) {
 
 // ---------- Render ----------
 
+function getVisibleDevices() {
+  const keyword = searchKeyword.trim().toLowerCase();
+  return devices.filter((d) => {
+    const matchKeyword =
+      keyword === "" ||
+      d.id.toLowerCase().includes(keyword) ||
+      (d.room || "").toLowerCase().includes(keyword);
+    const matchStatus = statusFilter === "ALL" || d.status === statusFilter;
+    return matchKeyword && matchStatus;
+  });
+}
+
+function csvCell(value) {
+  const s = String(value ?? "");
+  return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
 function renderNav() {
   const nav = document.querySelector("#device-nav");
   if (!nav) return;
@@ -82,14 +99,7 @@ function renderNav() {
     return;
   }
 
-  const visible = devices.filter((d) => {
-    const matchKeyword =
-      keyword === "" ||
-      d.id.toLowerCase().includes(keyword) ||
-      (d.room || "").toLowerCase().includes(keyword);
-    const matchStatus = statusFilter === "ALL" || d.status === statusFilter;
-    return matchKeyword && matchStatus;
-  });
+  const visible = getVisibleDevices();
 
   if (visible.length === 0) {
     nav.innerHTML = `<div class="nav-empty">Data tidak ditemukan</div>`;
@@ -277,6 +287,34 @@ function deleteDevice(id) {
   renderMain();
 }
 
+function exportCSV() {
+  const visible = getVisibleDevices();
+  if (visible.length === 0) {
+    alert("Tidak ada data yang tampil untuk diunduh.");
+    return;
+  }
+  const lines = [["ID", "Ruangan", "Daya (kW)", "Status (simulasi)", "Estimasi Biaya (Rp)"].join(",")];
+  for (const d of visible) {
+    const rekap = calcRekap(d);
+    lines.push(
+      [d.id, d.room || "", String(d.powerKw ?? ""), d.status, String(Math.round(rekap.totalBiaya))]
+        .map(csvCell)
+        .join(",")
+    );
+  }
+  const blob = new Blob(["\uFEFF" + lines.join("\r\n")], {
+    type: "text/csv;charset=utf-8",
+  });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "accentra-perangkat.csv";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
 function showAddModal() {
   closeModal();
   const overlay = document.createElement("div");
@@ -375,6 +413,7 @@ document.querySelector("#app").innerHTML = `
       <nav class="device-nav" id="device-nav"></nav>
       <div class="sidebar-bottom">
         <button class="add-device" id="add-device">Add New Device</button>
+        <button class="csv-btn" id="download-csv">Unduh CSV</button>
         <button class="collapse-btn" id="collapse-btn" aria-label="Collapse sidebar">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -387,6 +426,7 @@ document.querySelector("#app").innerHTML = `
 `;
 
 document.querySelector("#add-device")?.addEventListener("click", showAddModal);
+document.querySelector("#download-csv")?.addEventListener("click", exportCSV);
 document.querySelector("#device-search")?.addEventListener("input", (e) => {
   searchKeyword = e.target.value;
   renderNav();

@@ -253,6 +253,22 @@ button {
   font-size: 14px;
 }
 
+.csv-btn {
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: #dbe4f2;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.15s ease;
+}
+
+.csv-btn:hover {
+  background: #303d52;
+}
+
 .collapse-btn {
   width: 100%;
   padding: 9px 10px;
@@ -384,7 +400,8 @@ body.sidebar-collapsed .nav-delete {
 
 body.sidebar-collapsed .search-wrap,
 body.sidebar-collapsed .filter-row,
-body.sidebar-collapsed .filter-reset {
+body.sidebar-collapsed .filter-reset,
+body.sidebar-collapsed .csv-btn {
   display: none;
 }
 
