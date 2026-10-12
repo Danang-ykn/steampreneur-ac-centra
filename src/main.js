@@ -32,6 +32,7 @@ function saveSelectedId(id) {
 let devices = loadDevices();
 let selectedId = loadSelectedId();
 let searchKeyword = "";
+let statusFilter = "ALL"; // ALL | ON | OFF
 
 function getSelected() {
   return devices.find((d) => d.id === selectedId) || null;
@@ -71,20 +72,24 @@ function renderNav() {
   const nav = document.querySelector("#device-nav");
   if (!nav) return;
 
+  const keyword = searchKeyword.trim().toLowerCase();
+  document
+    .querySelector("#filter-reset")
+    ?.toggleAttribute("hidden", keyword === "" && statusFilter === "ALL");
+
   if (devices.length === 0) {
     nav.innerHTML = "";
     return;
   }
 
-  const keyword = searchKeyword.trim().toLowerCase();
-  const visible =
-    keyword === ""
-      ? devices
-      : devices.filter(
-          (d) =>
-            d.id.toLowerCase().includes(keyword) ||
-            (d.room || "").toLowerCase().includes(keyword)
-        );
+  const visible = devices.filter((d) => {
+    const matchKeyword =
+      keyword === "" ||
+      d.id.toLowerCase().includes(keyword) ||
+      (d.room || "").toLowerCase().includes(keyword);
+    const matchStatus = statusFilter === "ALL" || d.status === statusFilter;
+    return matchKeyword && matchStatus;
+  });
 
   if (visible.length === 0) {
     nav.innerHTML = `<div class="nav-empty">Data tidak ditemukan</div>`;
@@ -361,6 +366,12 @@ document.querySelector("#app").innerHTML = `
           aria-label="Cari perangkat"
         />
       </div>
+      <div class="filter-row" role="group" aria-label="Filter status">
+        <button class="filter-btn active" data-filter="ALL">Semua</button>
+        <button class="filter-btn" data-filter="ON">ON</button>
+        <button class="filter-btn" data-filter="OFF">OFF</button>
+      </div>
+      <button class="filter-reset" id="filter-reset" hidden>Reset</button>
       <nav class="device-nav" id="device-nav"></nav>
       <div class="sidebar-bottom">
         <button class="add-device" id="add-device">Add New Device</button>
@@ -378,6 +389,25 @@ document.querySelector("#app").innerHTML = `
 document.querySelector("#add-device")?.addEventListener("click", showAddModal);
 document.querySelector("#device-search")?.addEventListener("input", (e) => {
   searchKeyword = e.target.value;
+  renderNav();
+});
+document.querySelectorAll(".filter-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    statusFilter = btn.dataset.filter;
+    document.querySelectorAll(".filter-btn").forEach((b) => {
+      b.classList.toggle("active", b === btn);
+    });
+    renderNav();
+  });
+});
+document.querySelector("#filter-reset")?.addEventListener("click", () => {
+  searchKeyword = "";
+  statusFilter = "ALL";
+  const input = document.querySelector("#device-search");
+  if (input) input.value = "";
+  document.querySelectorAll(".filter-btn").forEach((b) => {
+    b.classList.toggle("active", b.dataset.filter === "ALL");
+  });
   renderNav();
 });
 document.querySelector("#collapse-btn")?.addEventListener("click", () => {
