@@ -21,3 +21,13 @@
 - **Test yang membuktikan:** `tes/bug2-diskon.test.js`.
 - **Commit perbaikan:** `perbaikan: diskon eksklusif member 10 persen, non-member 5 persen minimal 100000`
 - **Ditemukan oleh:** Fahril
+
+## Bug 3
+- **Gejala:** PPN selalu dibulatkan ke bawah sehingga total kurang Rp1 pada kasus pecahan 0,5 ke atas. Contoh: dasar 50 (PPN 5,5) dihitung 5, bukan 6. Dasar 13636 dihitung 1499, bukan 1500.
+- **Langkah untuk memunculkan bug:** Panggil `hitungPPN(50)` → 5 (harusnya 6). Panggil `hitungPPN(13636)` → 1499 (harusnya 1500).
+- **Aturan bisnis yang dilanggar:** No. 5 (PPN 11% dari subtotal dikurangi diskon, dibulatkan ke rupiah terdekat, 0,5 ke atas naik).
+- **Penyebab:** `kasir.js:hitungPPN` memakai `Math.floor`, bukan `Math.round`.
+- **Perbaikan:** Ganti menjadi `Math.round((dasar * 11) / 100)`.
+- **Test yang membuktikan:** `tes/bug3-ppn.test.js`.
+- **Commit perbaikan:** `perbaikan: PPN dibulatkan round bukan floor`
+- **Ditemukan oleh:** AI
