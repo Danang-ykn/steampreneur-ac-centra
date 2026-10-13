@@ -89,7 +89,11 @@ function hitungRingkasan(keranjang, member) {
 }
 
 function hitungKembalian(total, bayar) {
-  return bayar - total;
+  const uang = Number(bayar);
+  if (!Number.isFinite(uang) || uang < total) {
+    throw new Error("Uang pembayaran kurang");
+  }
+  return uang - total;
 }
 
 // Agar bisa dipakai di Node.js untuk pengujian.

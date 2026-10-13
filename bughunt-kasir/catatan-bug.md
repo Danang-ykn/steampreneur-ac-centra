@@ -31,3 +31,13 @@
 - **Test yang membuktikan:** `tes/bug3-ppn.test.js`.
 - **Commit perbaikan:** `perbaikan: PPN dibulatkan round bukan floor`
 - **Ditemukan oleh:** AI
+
+## Bug 4
+- **Gejala:** Bayar kurang dari total tetap dianggap berhasil. Contoh: total 10000 dibayar 5000, tampil `Kembalian: Rp-5.000` + pesan `Pembayaran berhasil`, bukan ditolak.
+- **Langkah untuk memunculkan bug:** Isi keranjang, masukkan uang lebih kecil dari total, klik Bayar — tidak ada error, kembalian negatif.
+- **Aturan bisnis yang dilanggar:** No. 7 (uang kurang harus ditolak dengan pesan `Uang pembayaran kurang`; jika cukup, kembalian = bayar − total).
+- **Penyebab:** `kasir.js:hitungKembalian` langsung `return bayar - total` tanpa pengecekan, sehingga nilai negatif/NaN lolos. `app.js` yang memanggilnya selalu menampilkan `Pembayaran berhasil`.
+- **Perbaikan:** Di `hitungKembalian`, konversi `bayar` dengan `Number`, tolak (`throw new Error("Uang pembayaran kurang")`) jika bukan angka hingga atau kurang dari total. `app.js` tidak perlu diubah karena sudah ada `try/catch` yang menampilkan pesan error.
+- **Test yang membuktikan:** `tes/bug4-kembalian.test.js` (kurang/kosong/nol/NaN ditolak; pas = 0; lebih = selisih).
+- **Commit perbaikan:** `perbaikan: tolak pembayaran kurang dengan pesan Uang pembayaran kurang`
+- **Ditemukan oleh:** Fahril
