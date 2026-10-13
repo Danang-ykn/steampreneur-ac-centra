@@ -1,9 +1,8 @@
 # Kesalahan AI yang Kami Temukan
 
-Catat setiap kali AI memberikan hasil yang salah, tidak sesuai spesifikasi, atau tidak perlu.
-Ini bukan catatan kegagalan tim. Justru ini bukti bahwa tim memeriksa hasil AI.
-
 | No | Apa yang diminta | Kesalahan AI | Bagaimana kami mengetahuinya | Perbaikan yang kami lakukan |
 |---|---|---|---|---|
-| 1 | | | | |
-| 2 | | | | |
+| 1 | Membantu mengembangkan fitur tambah perangkat AC-CENTRA. | Pada salah satu tahap pengerjaan, tombol **Add Device** tidak dapat diklik atau aplikasi terasa macet pada bagian tersebut. | Kami mencoba menggunakan aplikasi secara langsung dan menemukan bahwa tombol tidak merespons seperti yang diharapkan. | Kami meminta AI memeriksa ulang kode dan menjelaskan bagian yang perlu diperbaiki. Perbaikan spesifik tidak dicatat di sini karena detail perubahan kodenya belum dikonfirmasi. |
+| 2 | Membuat formulir untuk menambahkan perangkat AC. | Formulir yang muncul pada tahap awal hanya menampilkan isian ID dan Room, sedangkan isian daya AC (kW) belum tersedia. | Kami membandingkan formulir di browser dengan kebutuhan aplikasi, yaitu setiap perangkat perlu memiliki data daya agar estimasi energi dapat dihitung. | Kami meninjau kembali kebutuhan fitur dan meminta AI membantu memeriksa serta menyesuaikan kode formulir. Formulir pada kode yang ditinjau kemudian sudah memuat isian daya AC (kW). |
+| 3 | Menambahkan filter pada daftar perangkat. | Pada tahap awal, kontrol filter belum menyediakan fungsi reset untuk mengembalikan pencarian dan filter ke kondisi awal. | Kami mencoba menggunakan filter dan melihat bahwa belum tersedia cara praktis untuk menghapus kata kunci sekaligus mengembalikan pilihan filter ke Semua. | Kami meminta AI memeriksa ulang alur filter. Pada kode yang ditinjau kemudian, tombol Reset mengosongkan pencarian dan mengembalikan filter ke `ALL`. |
+| 4 | Meminta AI meninjau dan memberi saran berdasarkan file proyek AC-CENTRA. | Sebagian saran AI belum sesuai dengan kondisi file terbaru atau konteks pengerjaan. | Kami mencocokkan `main.js`, `style.css`, dan `index.html`, lalu menguji fitur secara manual. Pemeriksaan ini membantu membedakan saran yang relevan dari saran yang perlu diverifikasi lagi. | Kami meminta AI memeriksa ulang kode dan menjelaskan bagian yang perlu diperbaiki. Saran tidak langsung diterapkan sebelum dicocokkan dengan kode dan hasil pengujian. |
