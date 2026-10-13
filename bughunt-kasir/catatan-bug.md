@@ -11,3 +11,13 @@
 - **Test yang membuktikan:** `tes/bug1-qty.test.js` (qty salah ditolak; string `"2"` diterima sebagai angka 2; `"2"+"3"=5` dan subtotal 20000; 90+20 ditolak).
 - **Commit perbaikan:** `perbaikan: validasi jumlah 1-99 dan konversi string di tambahItem`
 - **Ditemukan oleh:** Danang
+
+## Bug 2
+- **Gejala:** Member dengan subtotal >100.000 dapat diskon 15% (contoh: 200.000 jadi 30.000). Non-member dengan subtotal pas 100.000 tidak dapat diskon sama sekali.
+- **Langkah untuk memunculkan bug:** Panggil `hitungDiskon(200000, true)` → 30000 (harusnya 20000). Panggil `hitungDiskon(100000, false)` → 0 (harusnya 5000).
+- **Aturan bisnis yang dilanggar:** No. 4 (diskon tidak boleh digabung; member 10%, non-member minimal Rp100.000 dapat 5%).
+- **Penyebab:** `kasir.js:hitungDiskon` memakai dua `if` yang dijumlahkan (`+=`) sehingga member+besar digabung, dan memakai `>` bukan `>=` sehingga 100.000 pas lolos.
+- **Perbaikan:** Ubah menjadi `if (member) ... else if (subtotal >= 100000) ...` dengan penugasan `=` bukan `+=`.
+- **Test yang membuktikan:** `tes/bug2-diskon.test.js`.
+- **Commit perbaikan:** `perbaikan: diskon eksklusif member 10 persen, non-member 5 persen minimal 100000`
+- **Ditemukan oleh:** Fahril
