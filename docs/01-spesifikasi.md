@@ -1,7 +1,3 @@
-
-
-<!-- [Main.JS](../src/main.js#L31) -->
-
 # Spesifikasi Produk — AC-CENTRA
 
 **Nama tim:** AC-CENTRA  
@@ -59,7 +55,20 @@ Kebutuhan utama pengguna adalah melihat daftar unit dan status simulasi ON/OFF, 
 5. **Penyimpanan persisten:** data unit dan riwayat disimpan di `localStorage` dan tetap tersedia setelah halaman dimuat ulang pada browser yang sama.
 6. **Rekap penggunaan:** menampilkan riwayat/status unit, durasi penggunaan yang telah selesai, serta estimasi energi dan biaya berdasarkan data tersimpan.
 
-Pencarian, filter, dan ekspor CSV ditambahkan setelah Checkpoint 2 sebagai Change Request. Ketiganya bukan syarat bahwa alur inti versi pertama telah selesai.
+Pencarian, filter, dan ekspor CSV ditambahkan setelah Checkpoint 2 sebagai Change Request. Ketiganya bukan syarat bahwa alur inti versi pertama telah selesai. Setelah Change Request diimplementasikan dan diuji, fitur tersebut menjadi bagian dari kemampuan prototipe pada versi yang diperbarui.
+
+### 4.1 Fitur Change Request — Tugas 3
+
+1. **Pencarian perangkat:** pengguna dapat mencari perangkat berdasarkan ID unit atau nama ruangan. Hasil diperbarui saat pengguna mengetik dan pencarian tidak membedakan huruf besar/kecil.
+2. **Filter status:** pengguna dapat memilih `Semua perangkat`, `ON`, atau `OFF`.
+3. **Kombinasi pencarian dan filter:** ketika pencarian dan filter status digunakan bersamaan, perangkat yang ditampilkan harus memenuhi kedua kriteria.
+4. **Reset filter status:** ketika filter diubah dari `ON` atau `OFF` menjadi `Semua perangkat`, filter status dihapus. Kata kunci pencarian yang masih terisi tetap berlaku. Jika pencarian kosong, semua perangkat ditampilkan.
+5. **Hasil kosong:** jika tidak ada perangkat yang cocok dengan pencarian dan filter aktif, aplikasi menampilkan pesan persis `Data tidak ditemukan`.
+6. **Ekspor CSV:** tombol `Unduh CSV` mengunduh data perangkat yang sedang ditampilkan setelah pencarian dan filter diterapkan, bukan seluruh data tanpa memedulikan tampilan.
+7. **Header CSV:** file CSV memiliki baris header untuk kolom data yang diekspor. Kolom minimum mencakup ID perangkat, nama ruangan, daya AC, dan status simulasi, sesuai nama field pada implementasi.
+8. **Format nilai numerik:** nilai numerik pada CSV tidak menggunakan simbol mata uang atau pemisah ribuan. Contoh: `15000`, bukan `Rp15.000`.
+9. **Keamanan data dan batasan simulasi:** pencarian, filter, dan ekspor hanya mengubah tampilan atau menghasilkan salinan data untuk diunduh. Fitur tersebut tidak boleh mengubah data perangkat, status simulasi, riwayat, atau data `localStorage`. CSV tidak boleh menyatakan data simulasi/estimasi sebagai pembacaan sensor atau pengukuran listrik aktual.
+10. **Pengujian regresi:** setelah Change Request diterapkan, alur inti versi pertama harus diuji ulang agar penambahan fitur tidak merusak fungsi sebelumnya.
 
 ## 5. Di luar cakupan alur inti versi pertama
 
@@ -107,15 +116,30 @@ Pencarian, filter, dan ekspor CSV ditambahkan setelah Checkpoint 2 sebagai Chang
 
 ## 8. Kriteria selesai untuk alur inti versi pertama
 
-- [ ] Daftar unit menampilkan ID, nama ruangan, daya, dan status simulasi ON/OFF, atau keadaan kosong yang jelas jika belum ada data.
-- [ ] Pengguna dapat menambahkan unit; ID dan nama ruangan wajib diisi, daya divalidasi, dan ID duplikat ditolak.
-- [ ] Pengguna dapat mengubah status simulasi satu unit dari OFF ke ON dan dari ON ke OFF.
-- [ ] Sistem mencatat waktu mulai dan waktu selesai serta menghitung durasi periode yang telah selesai.
-- [ ] Periode dengan waktu selesai sama dengan atau lebih awal daripada waktu mulai tidak diterima sebagai periode selesai yang valid.
-- [ ] Tindakan yang tidak mengubah status tidak menghasilkan riwayat transisi duplikat.
-- [ ] Data unit dan riwayat tetap tersedia setelah halaman dimuat ulang pada browser yang sama.
-- [ ] Rekap menampilkan durasi serta estimasi energi dan biaya berdasarkan rumus yang ditetapkan.
-- [ ] Estimasi diberi label jelas dan tidak diklaim sebagai pengukuran IoT atau bukti penghematan aktual.
-- [ ] Alur dari daftar unit, perubahan status, riwayat, hingga rekap dapat dijalankan.
-- [ ] Antarmuka dapat digunakan pada laptop/PC dan smartphone tanpa elemen utama terpotong.
-- [ ] README menjelaskan cara menjalankan prototipe dan batasan simulasi secara akurat.
+- [x] Daftar unit menampilkan ID, nama ruangan, daya, dan status simulasi ON/OFF, atau keadaan kosong yang jelas jika belum ada data.
+- [x] Pengguna dapat menambahkan unit; ID dan nama ruangan wajib diisi, daya divalidasi, dan ID duplikat ditolak.
+- [x] Pengguna dapat mengubah status simulasi satu unit dari OFF ke ON dan dari ON ke OFF.
+- [x] Sistem mencatat waktu mulai dan waktu selesai serta menghitung durasi periode yang telah selesai.
+- [x] Periode dengan waktu selesai sama dengan atau lebih awal daripada waktu mulai tidak diterima sebagai periode selesai yang valid.
+- [x] Tindakan yang tidak mengubah status tidak menghasilkan riwayat transisi duplikat.
+- [x] Data unit dan riwayat tetap tersedia setelah halaman dimuat ulang pada browser yang sama.
+- [x] Rekap menampilkan durasi serta estimasi energi dan biaya berdasarkan rumus yang ditetapkan.
+- [x] Estimasi diberi label jelas dan tidak diklaim sebagai pengukuran IoT atau bukti penghematan aktual.
+- [x] Alur dari daftar unit, perubahan status, riwayat, hingga rekap dapat dijalankan.
+- [x] Antarmuka dapat digunakan pada laptop/PC dan smartphone tanpa elemen utama terpotong.
+- [x] README menjelaskan cara menjalankan prototipe dan batasan simulasi secara akurat.
+
+## 9. Kriteria selesai untuk Change Request Tugas 3
+
+- [x] Pencarian berdasarkan ID perangkat atau nama ruangan bekerja saat pengguna mengetik.
+- [x] Pencarian tidak membedakan huruf besar dan kecil.
+- [x] Filter `ON`, `OFF`, dan `Semua perangkat` bekerja sesuai pilihan.
+- [x] Filter `OFF` dapat direset ke `Semua perangkat`; seluruh perangkat yang sesuai pencarian saat ini kembali ditampilkan.
+- [x] Pencarian dan filter status dapat digunakan bersamaan.
+- [x] Pesan `Data tidak ditemukan` ditampilkan jika tidak ada hasil.
+- [x] Tombol `Unduh CSV` menghasilkan file CSV yang dapat dibuka dan memiliki baris header.
+- [x] CSV memuat data yang sedang ditampilkan setelah pencarian dan filter diterapkan.
+- [x] Nilai numerik CSV tidak menggunakan simbol mata uang atau pemisah ribuan.
+- [x] Ekspor CSV tidak mengubah data perangkat, status simulasi, riwayat, atau `localStorage`.
+- [x] Pengujian regresi alur inti versi pertama telah dijalankan kembali dan hasil aktualnya dicatat.
+- [x] README dan dokumen kasus uji diperbarui agar sesuai dengan fitur yang benar-benar diimplementasikan.

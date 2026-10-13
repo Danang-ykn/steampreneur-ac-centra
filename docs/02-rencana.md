@@ -6,7 +6,7 @@
 
 ## Prinsip pengerjaan
 
-### Pembagian peran
+### Pembagian perantrgtdrff
 
 - **Danang — logika aplikasi:** aturan bisnis, status simulasi, riwayat, perhitungan, dan penyimpanan.
 - **Fahril — antarmuka (UI):** struktur halaman, daftar unit, formulir tambah unit, dashboard/rekap, dan tampilan responsif.
