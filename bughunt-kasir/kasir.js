@@ -28,15 +28,24 @@ function tambahItem(keranjang, kode, qty) {
     throw new Error("Produk tidak ditemukan");
   }
 
+  const jumlah = Number(qty);
+  if (!Number.isInteger(jumlah) || jumlah < 1 || jumlah > 99) {
+    throw new Error("Jumlah harus bilangan bulat 1-99");
+  }
+
   const itemLama = keranjang.find((i) => i.kode === kode);
   if (itemLama) {
-    itemLama.qty += qty;
+    const total = itemLama.qty + jumlah;
+    if (total > 99) {
+      throw new Error("Jumlah harus bilangan bulat 1-99");
+    }
+    itemLama.qty = total;
   } else {
     keranjang.push({
       kode: produk.kode,
       nama: produk.nama,
       harga: produk.harga,
-      qty: qty,
+      qty: jumlah,
     });
   }
   return keranjang;
