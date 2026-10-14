@@ -2,7 +2,7 @@
 
 ## 1. Apa yang berjalan baik dalam cara kami bekerja dengan AI?
 
-Kami terbantu karena AI dapat menjelaskan langkah-langkah pengerjaan secara bertahap. Saya sendiri masih awam dalam pembuatan website, jadi penjelasan tentang fungsi setiap bagian kode, cara menjalankan aplikasi, dan cara menggunakan Git sangat membantu. Kami juga belajar bahwa AI bisa digunakan untuk mencari kemungkinan kesalahan, menyusun dokumen spesifikasi, membuat kasus uji, dan membantu menulis dokumentasi. Kami tidak langsung menerima semua saran, tetapi mencocokkannya dengan kebutuhan proyek dan mencoba hasilnya.
+Kami terbantu karena AI dapat menjelaskan langkah-langkah pengerjaan secara bertahap. Dikarenakan dari tim kami masih awam dalam pembuatan website, jadi penjelasan tentang fungsi setiap bagian kode, cara menjalankan aplikasi, dan cara menggunakan Git sangat membantu. Kami juga belajar bahwa AI bisa digunakan untuk mencari kemungkinan kesalahan, menyusun dokumen spesifikasi, membuat kasus uji, dan membantu menulis dokumentasi. Kami tidak langsung menerima semua saran, tetapi mencocokkannya dengan kebutuhan proyek dan mencoba hasilnya.
 
 ## 2. Kapan AI paling membantu? Kapan AI justru menyulitkan?
 
